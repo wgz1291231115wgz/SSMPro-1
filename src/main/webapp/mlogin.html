@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>注册界面</title>
+    <link rel="stylesheet" href="css/Login.css">
+    <link rel="icon" type="image/png" href="img/TL.png">
+</head>
+<body>
+    <div id="Mlogin">
+        <h1>注册<a href="login.html">登录</a></h1>
+<!--        <form method="post">-->
+        <input id="text1" type="text" required="required" placeholder="用户名" onblur="checkname()">
+        <div id="div1" class="div"></div>
+
+        <input id="text2" type="password" required="required" placeholder="密码" onblur="checkpassword()">
+        <div id="div2" class="div"></div>
+
+        <input id="text3" type="password" required="required" placeholder="确认密码" onblur="checkrepassword()">
+        <div id="div3" class="div"></div>
+
+        <input id="text4" type="text" required="required" placeholder="电子邮件地址" onblur="checkEmail()">
+        <div id="div4" class="div"></div>
+
+        <input id="text5" type="text" required="required" placeholder="手机号" onblur="checkPhone()">
+        <div id="div5" class="div"></div>
+
+        <button class="but" type="submit">注册</button>
+<!--        </form>-->
+    </div>
+</body>
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/Login.js"></script>
+<script>
+    $(".but").eq(0).blur(function () {
+        if (Mlogin()){
+            var acc=$("#text1").val();
+            var pwd=$("#text2").val();
+            var email=$("#text4").val();
+            var phone=$("#text5").val();
+            var jsonData={};
+            // jsonData.mark="Mlogin";
+            jsonData.acc=acc;
+            jsonData.pwd=pwd;
+            jsonData.email=email;
+            jsonData.phone=phone;
+            $.ajax({
+                url:"http://localhost:8080/SSMPro-1/Mlogin",
+                type:"post",
+                data:JSON.stringify(jsonData),
+                contentType:"application/json",
+                dataType:"json",
+                success:function (result) {
+                    console.log(result);
+                    if (result&&result==1){
+                        alert("注册成功！");
+                        window.location.href="login.html";
+                    }else if (result==2){
+                        alert("注册失败！账号已存在");
+                    }else if (result==3){
+                        alert("注册失败！邮箱已存在");
+                    }else if (result==4){
+                        alert("注册失败！电话已存在");
+                    }else {
+                        alert("注册失败！数据连接出错")
+                    }
+                }
+            });
+        }else {
+            alert("请先完善信息")
+        }
+    });
+</script>
+
+</html>

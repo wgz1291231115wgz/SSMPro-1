@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+    <!--  开启注解配置  -->
+    <mvc:annotation-driven/>
+    <!--注解扫描-->
+    <context:component-scan base-package="com.tledu.cn.controller"></context:component-scan>
+<!--    <mvc:annotation-driven validator="validator" />-->
+
+<!--    <mvc:annotation-driven validator="validator" conversion-service="conversionService"/>-->
+<!--&lt;!&ndash;        全局Date类型转换&ndash;&gt;-->
+<!--    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+<!--        <property name="converters">-->
+<!--            <list>-->
+<!--                <bean class="com.tledu.cn.annotation.controller.DateConverter" />-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <mvc:default-servlet-handler/>-->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <bean class="com.tledu.cn.annotation.interceptor.LogInterceptor"></bean>-->
+<!--        </mvc:interceptor>-->
+
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash;配置拦截器的作用路径&ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            &lt;!&ndash; 哪些方法不进行拦截  &ndash;&gt;-->
+<!--&lt;!&ndash;                <mvc:exclude-mapping path=""/>&ndash;&gt;-->
+
+<!--            &lt;!&ndash;定义在<mvc:interceptor>下面的表示匹配指定路径的请求才进行拦截&ndash;&gt;-->
+<!--            <bean class="com.tledu.cn.annotation.interceptor.test.Intercptor1"/>-->
+<!--        </mvc:interceptor>-->
+<!--        &lt;!&ndash;拦截器2&ndash;&gt;-->
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/parseJSON2"/>-->
+<!--            <bean class="com.tledu.cn.annotation.interceptor.test.Interceptor2"/>-->
+<!--        </mvc:interceptor>-->
+
+<!--    </mvc:interceptors>-->
+    <!--  开启静态资源访问  -->
+
+    <!-- 注册hibernate的校验器 -->
+<!--    <bean id = "validator" class = "org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+<!--        <property name="providerClass" value ="org.hibernate.validator.HibernateValidator"></property>-->
+<!--    </bean>-->
+    <!--    注解扫描-->
+
+    <!--  开启静态资源访问  -->
+    <mvc:default-servlet-handler/>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+            </list>
+        </property>
+    </bean>
+
+
+<!--    /jsp/success.jsp-->
+<!--    <mvc:resources location="/xxx/" mapping="/xxx/**"></mvc:resources>-->
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>

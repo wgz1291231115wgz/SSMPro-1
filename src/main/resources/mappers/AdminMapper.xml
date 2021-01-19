@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tledu.cn.dao.AdminDao">
+    
+    <select id="adminList" resultType="AdminPojo">
+        select * from admin
+    </select>
+
+    <insert id="saveAdmin" parameterType="AdminPojo">
+        insert into admin (id,imgs,acc,pwd,email,phone) values (#{id},"text/imgs/5-160504153422.jpg",#{acc},#{pwd},#{email},#{phone})
+    </insert>
+
+    <select id="getUserByAcc" resultType="AdminPojo" parameterType="string">
+        select * from admin
+        <where>
+            <choose>
+                <when test="value!=null and value!=''">
+                    and acc=#{value}
+                </when>
+                <otherwise>
+                    and acc="123"
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updataImgs" parameterType="AdminPojo">
+        updata admin set imgs=#{imgs} where id=#{id}
+    </update>
+
+</mapper>
